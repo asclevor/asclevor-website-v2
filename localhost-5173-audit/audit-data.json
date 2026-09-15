@@ -1,0 +1,111 @@
+{
+  "summary": {
+    "health_score": 41,
+    "business_type": "SaaS (health-tech / clinical knowledge API)",
+    "top_findings": [
+      "Homepage and contact page titles/descriptions are Cursor's, not Asclevor's (wrong brand on 2 of 4 pages)",
+      "Hero image alt text reads 'Cursor app screenshot'",
+      "~37.6 MB uncompressed media; two autoplay MP4s (14 MB + 6.9 MB) use preload=auto with no poster",
+      "No sitemap.xml (404), no canonical tags, no Open Graph/Twitter tags, zero JSON-LD structured data",
+      "Thin content: 95-215 words per page; no llms.txt"
+    ],
+    "quick_wins": [
+      "Rewrite 2 wrong-brand titles/descriptions (10 min)",
+      "Fix hero alt text (2 min)",
+      "Add static/sitemap.xml + robots.txt Sitemap directive (15 min)",
+      "Shared head component: canonical + OG/Twitter tags + one 1200x630 OG image (45 min)",
+      "Convert 5 PNGs to WebP and re-encode 2 MP4s: 37.6 MB to ~3 MB (60 min)"
+    ]
+  },
+  "categories": [
+    {
+      "name": "Technical SEO",
+      "score": 55,
+      "what_works": [
+        "Full SSR HTML on all 4 routes, all return 200, no noindex",
+        "Valid robots.txt, lang=en, SVG favicon"
+      ],
+      "findings": [
+        {"title": "No XML sitemap", "severity": "High", "description": "/sitemap.xml returns 404.", "recommendation": "Add static/sitemap.xml with all 4 URLs; reference from robots.txt."},
+        {"title": "No canonical tags", "severity": "High", "description": "Zero rel=canonical across pages; apex 308-redirects to www, duplicate-signal risk.", "recommendation": "Add canonical to every page standardizing on https://www.asclevor.com."},
+        {"title": "robots.txt missing Sitemap directive", "severity": "Medium", "description": "No Sitemap: line.", "recommendation": "Add Sitemap: https://www.asclevor.com/sitemap.xml."},
+        {"title": "Production security headers unverified", "severity": "Medium", "description": "adapter-auto, no svelte.config.js; deploy target undetected.", "recommendation": "Ensure HSTS, X-Content-Type-Options, Referrer-Policy at host; confirm apex->www 308."},
+        {"title": "No prerendering", "severity": "Low", "description": "Static marketing pages not prerendered.", "recommendation": "export const prerender = true."},
+        {"title": "Invalid meta tag", "severity": "Low", "description": "<meta name=\"text-scale\" content=\"scale\"> in app.html is nonstandard.", "recommendation": "Remove it."}
+      ]
+    },
+    {
+      "name": "Content Quality",
+      "score": 45,
+      "what_works": ["Clear value proposition", "Consistent tone", "FAQ section on pricing"],
+      "findings": [
+        {"title": "Wrong-brand copy on homepage and contact", "severity": "Critical", "description": "Titles/descriptions say 'Cursor · The AI Code Editor' / 'Contact the Cursor team' (src/routes/+page.svelte:11-12, src/routes/contact/+page.svelte:44-48).", "recommendation": "Replace with Asclevor-branded metadata."},
+        {"title": "Thin content", "severity": "High", "description": "134/156/215/95 words on /, /api, /pricing, /contact.", "recommendation": "Expand homepage past 300 words with outcomes and proof; add endpoint/code specifics to /api."},
+        {"title": "No authority layer", "severity": "High", "description": "No case studies, blog, or named expertise for a clinical data product.", "recommendation": "Add compliance strip (SOC 2/HIPAA-eligibility/data sourcing); plan content hub on main domain."},
+        {"title": "No content hub on main domain", "severity": "High", "description": "Docs and app live on subdomains; no blog/changelog on www.", "recommendation": "Publish use-case/blog content on www.asclevor.com."}
+      ]
+    },
+    {
+      "name": "On-Page SEO",
+      "score": 50,
+      "what_works": ["One H1 per page, keyword-bearing", "All images alt-texted", "Full internal link mesh"],
+      "findings": [
+        {"title": "2 of 4 titles/descriptions wrong brand", "severity": "Critical", "description": "See Content Quality.", "recommendation": "Rewrite metadata."},
+        {"title": "No social sharing metadata", "severity": "High", "description": "No OG or Twitter tags; no OG image asset exists.", "recommendation": "Shared head component + 1200x630 OG image under 300 KB."},
+        {"title": "Sparse heading structure", "severity": "Medium", "description": "0-2 H2s per page; feature sections may lack real heading tags.", "recommendation": "Use H2/H3 for feature section titles."},
+        {"title": "Generic alt text", "severity": "Low", "description": "'Mission Control', 'Cloud agents' describe feature names not content.", "recommendation": "Describe what the images show."}
+      ]
+    },
+    {
+      "name": "Schema / Structured Data",
+      "score": 15,
+      "what_works": ["Clean head, easy to add JSON-LD"],
+      "findings": [
+        {"title": "Zero structured data", "severity": "High", "description": "No JSON-LD on any page.", "recommendation": "Add Organization (+sameAs) site-wide; SoftwareApplication+offers on / and /pricing; WebSite; ContactPage. FAQPage optional (no Google SERP feature since May 2026). Never HowTo."}
+      ]
+    },
+    {
+      "name": "Performance (CWV)",
+      "score": 20,
+      "what_works": ["font display=swap", "preconnect hints", "muted/playsinline autoplay"],
+      "findings": [
+        {"title": "21 MB autoplay video downloaded on load", "severity": "Critical", "description": "ImgSlot.svelte renders <video preload=\"auto\"> with no poster; case-search.mp4 is 14 MB, everywhere.mp4 6.9 MB.", "recommendation": "preload=metadata, compressed posters, viewport-gated loading, re-encode to ~2.5 MB total."},
+        {"title": "Oversized PNGs", "severity": "High", "description": "api-hero 2.3 MB, hero-app 1.9 MB, avatar 1.1 MB, plus 784 KB/612 KB.", "recommendation": "WebP/AVIF conversion, lazy loading, width/height, fetchpriority=high on heroes."},
+        {"title": "Render-blocking Google Fonts", "severity": "Medium", "description": "2 families, 8 weights from fonts.googleapis.com.", "recommendation": "Trim weights; consider self-hosting."},
+        {"title": "No intrinsic media dimensions", "severity": "Medium", "description": "No width/height on video/img in ImgSlot.", "recommendation": "Set aspect-ratio or dimension attributes."}
+      ]
+    },
+    {
+      "name": "AI Search Readiness",
+      "score": 35,
+      "what_works": ["SSR HTML fully readable by AI crawlers", "robots.txt allows all bots", "Declarative H1s"],
+      "findings": [
+        {"title": "Wrong-brand metadata corrupts entity signals", "severity": "Critical", "description": "AI engines see 'Cursor' as the title of the brand page.", "recommendation": "Fix metadata (Phase 1)."},
+        {"title": "No llms.txt", "severity": "Medium", "description": "/llms.txt 404.", "recommendation": "Add llms.txt with product definition, pricing, API base URL, doc links."},
+        {"title": "Low citability", "severity": "High", "description": "95-215 words/page, few concrete specifics or numbers.", "recommendation": "Add quotable factual passages: coverage stats, endpoints, compliance facts."}
+      ]
+    },
+    {
+      "name": "Images",
+      "score": 40,
+      "what_works": ["8/8 images have alt text"],
+      "findings": [
+        {"title": "Unoptimized media pipeline", "severity": "High", "description": "No WebP/AVIF, no lazy loading, no dimensions, ~37.6 MB total media.", "recommendation": "Adopt @sveltejs/enhanced-img or vite-imagetools; convert and resize."},
+        {"title": "No OG image asset", "severity": "Medium", "description": "No 1200x630 social preview exists.", "recommendation": "Create one, under 300 KB."},
+        {"title": "Wrong-brand alt", "severity": "Medium", "description": "Hero alt says 'Cursor app screenshot'.", "recommendation": "Rewrite alt text."}
+      ]
+    }
+  ],
+  "action_plan": {
+    "phases": [
+      {"name": "Phase 1: Critical Fixes", "timeframe": "Week 1", "items": ["Replace Cursor titles/descriptions on / and /contact", "Fix hero alt text", "Video preload=metadata + posters + viewport gating; re-encode MP4s", "Convert PNGs to WebP"]},
+      {"name": "Phase 2: High-Impact Improvements", "timeframe": "Weeks 2-3", "items": ["Canonical tags", "sitemap.xml + robots Sitemap directive", "Organization + SoftwareApplication JSON-LD", "OG/Twitter tags + OG image", "API page code sample and endpoint list", "Compliance strip", "Image lazy loading + dimensions"]},
+      {"name": "Phase 3: Content & Authority", "timeframe": "Month 2", "items": ["Expand homepage copy past 300 words with proof", "FAQ pattern on /api", "llms.txt", "WebSite + ContactPage schema", "Content hub plan for main domain", "Font optimization"]},
+      {"name": "Phase 4: Monitoring & Iteration", "timeframe": "Ongoing", "items": ["Verify production headers + apex->www 308", "GSC sitemap submit + track brand impressions (4-week check)", "Monthly PageSpeed on all routes", "Monthly AI-engine entity check for 'What is Asclevor?'", "Re-run full audit after production deploy"]}
+    ]
+  },
+  "artifacts": {
+    "findings_dir": "findings/",
+    "screenshots_dir": "screenshots/"
+  }
+}

@@ -1,0 +1,15 @@
+# Package Managers
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+bun.lock
+bun.lockb
+
+# Miscellaneous
+/static/
+
+# Legacy pre-SvelteKit site (reference only)
+/cursor/
+
+# audit artifacts
+localhost-5173-audit

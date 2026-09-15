@@ -1,0 +1,26 @@
+# Asclevor
+
+> Asclevor is a knowledge base for medical infrastructure: semantic search over 167,000+ real-world patient cases and their associated medical literature, accessible via a simple JSON API and the Model Context Protocol (MCP). It helps developers and researchers build clinical search, patient-similarity features, and AI-agent tools on structured medical data. Asclevor provides access to medical case data and retrieval infrastructure; it is not a diagnostic system and not a substitute for professional medical judgment.
+
+## Essentials
+
+- Product: clinical case search API (semantic, natural-language queries over real-world patient cases)
+- API base: https://api.asclevor.com — e.g. POST /search with {"query": "...", "k": 5, "mode": "auto", "include_text": true}
+- Free tier: 10,000 requests/month, no API key required, 20 requests/minute
+- Paid plans: Developer ($29/mo), Pro ($99/mo), Enterprise (custom: dedicated infrastructure, bulk data access, contractual SLAs)
+
+## Pages
+
+- Home: https://www.asclevor.com/
+- API: https://www.asclevor.com/api
+- Pricing: https://www.asclevor.com/pricing
+- Contact: https://www.asclevor.com/contact
+
+## Related properties
+
+- Documentation: https://docs.asclevor.com
+- Application: https://app.asclevor.com
+
+## For AI agents
+
+Asclevor supports MCP (Model Context Protocol) so AI agents can query clinical cases directly.

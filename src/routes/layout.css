@@ -1,0 +1,85 @@
+@import 'tailwindcss';
+
+/* ── Theme (migrated from the old tailwind.config) ────────────────────── */
+@theme {
+	--color-paper: #f7f7f4; /* page background */
+	--color-card: #f2f1ed; /* panels, cards, footer */
+	--color-frame: #e6e4e1; /* placeholder image frames */
+	--color-ink: #262520; /* near-black text / buttons */
+	--color-soft: #787671; /* secondary gray text */
+	--color-accent: #f54e00; /* cursor orange links */
+	--color-line: #edece8; /* hairline borders */
+	--color-btn2: #e6e5e0; /* secondary button */
+
+	--font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+	--font-display: 'Space Grotesk', 'Inter', ui-sans-serif, system-ui, sans-serif;
+	--font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+::selection {
+	background: #262520;
+	color: #f7f7f4;
+}
+
+body {
+	@apply bg-paper font-sans text-ink antialiased;
+	text-rendering: optimizeLegibility;
+}
+
+/* ── Drop-in image slots ──────────────────────────────────────────────── */
+/* The <img>/<video> fills the slot; while the file is missing, the slot
+   shows its data-label / data-hint instead. No JS state to manage.      */
+.img-slot {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 4px;
+	overflow: hidden;
+}
+.img-slot img,
+.img-slot video {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+/* While loading: media stays in the layout (opacity 0) so native lazy
+   loading can still trigger — display:none would deadlock it, since a
+   hidden img never intersects the viewport and is never fetched. */
+.img-slot.is-empty img,
+.img-slot.is-empty video {
+	opacity: 0;
+}
+.img-slot.is-loaded img,
+.img-slot.is-loaded video {
+	opacity: 1;
+	transition: opacity 0.3s ease;
+}
+.img-slot.is-empty::before {
+	content: attr(data-label);
+	font-size: 13px;
+	font-weight: 500;
+	color: #8b897f;
+	text-align: center;
+	padding: 0 16px;
+}
+.img-slot.is-empty::after {
+	content: attr(data-hint);
+	font-size: 11px;
+	color: rgba(120, 118, 113, 0.6);
+	text-align: center;
+	padding: 0 16px;
+}
+
+/* Avatar slots: images fill the circle when present (managed by Avatar.svelte) */
+.avatar-slot {
+	position: relative;
+}
+.avatar-slot img {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
