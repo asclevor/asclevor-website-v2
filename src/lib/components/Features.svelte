@@ -21,10 +21,11 @@
 	<div class="grid items-center gap-8 rounded-xl bg-card p-4 lg:grid-cols-[1fr_1.62fr] lg:gap-4">
 		<div class="px-3 lg:px-4">
 			<h2 class="text-[21px] leading-[1.4] font-normal tracking-[-0.005em]">
-				<span class="text-ink">Give frontier models access to clinical cases</span>
+				<span class="text-ink">Connect AI systems to medical knowledge</span>
 				<br />
 				<span class="text-soft">
-					Connect Asclevor to AI agents through the Model Context Protocol (MCP).</span
+					Give models and agents access to clinical cases and medical knowledge through Asclevor
+					MCP.</span
 				>
 			</h2>
 		</div>
@@ -63,11 +64,11 @@
 		/>
 		<div class="order-1 px-3 lg:order-2 lg:px-6">
 			<h2 class="text-[21px] leading-[1.4] font-normal tracking-[-0.005em]">
-				<span class="text-ink">Search clinical cases in seconds.</span>
+				<span class="text-ink">Find clinically similar cases in seconds.</span>
 				<br />
 				<span class="text-soft">
-					Explore clinical cases with natural-language search. Asclevor retrieves semantically
-					similar cases</span
+					Search more than 167,000 published patient cases using clinical meaning rather than exact
+					keywords.</span
 				>
 			</h2>
 			<a
@@ -101,9 +102,10 @@
 	<div class="grid items-center gap-8 rounded-xl bg-card p-4 lg:grid-cols-[1fr_1.62fr] lg:gap-4">
 		<div class="px-3 lg:px-4">
 			<h2 class="text-[21px] leading-[1.4] font-normal tracking-[-0.005em]">
-				<span class="text-ink">Build medical applications with the Asclevor API.</span><br />
+				<span class="text-ink">Build on medical intelligence.</span><br />
 				<span class="text-soft">
-					Integrate clinical case retrieval directly into your software with a simple HTTP API.</span
+					Integrate medical knowledge, clinical case retrieval, and reasoning capabilities directly
+					into applications through the Asclevor API.</span
 				>
 			</h2>
 

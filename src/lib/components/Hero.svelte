@@ -4,11 +4,17 @@
 
 <section class="mx-auto w-full max-w-[1300px] px-4 xl:px-0">
 	<div class="pt-[100px]">
-		<h1 class="max-w-[640px] text-[28px] leading-[1.2] tracking-[-0.01em] sm:text-[30px]">
-			Asclevor is your knowledge base for medical infrastructure.
-		</h1>
+		<div class="flex justify-between">
+			<h1 class="max-w-[640px] text-[28px] leading-[1.2] tracking-[-0.01em] sm:text-[30px]">
+				The intelligence layer for medicine.
+			</h1>
+			<p class="max-w-[400px]">
+				Asclevor builds infrastructure for retrieving, connecting, and reasoning over medical
+				knowledge.
+			</p>
+		</div>
 
-		<div class="mt-7 flex flex-wrap items-center gap-3">
+		<div class="mt-12 flex flex-wrap items-center gap-3">
 			<a
 				href="https://app.asclevor.com"
 				target="_blank"
@@ -48,7 +54,7 @@
 
 	<div class="mt-12">
 		<p class="text-center text-[14px] text-ink">
-			Trusted every day by teams that build world-class software
+			Built for developers, researchers, and medical AI systems.
 		</p>
 	</div>
 </section>
