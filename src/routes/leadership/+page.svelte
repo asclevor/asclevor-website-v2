@@ -4,21 +4,37 @@
 	import Seo from '$lib/components/Seo.svelte';
 	import { SITE_NAME, SITE_URL } from '$lib/config/site.js';
 
-	// PLACEHOLDERS: Only Leander Guo is a confirmed team member (from the
-	// contact page). The bracketed entries below are placeholders — replace
-	// names, roles, bios, and add photos to static/images/ before publishing.
-	// Photos: drop portrait files into static/images/ and set `img` below.
-	const leaders = [
-		{
-			id: 'ceo',
-			name: 'Leander Guo',
-			role: 'Chief Executive Officer',
-			bio: 'Founded Asclevor to make medical knowledge infrastructure as accessible to developers and researchers as the tools they already use every day.',
-			img: '/images/leander-guo.webp',
-			initials: 'LG',
-			bg: '#B9AFC5'
-		}
-	];
+	// Photos live in static/images/. Descriptive filenames + alt text +
+	// captions + JSON-LD image data + image sitemap entries help Google
+	// index them in Google Images.
+	const leader = {
+		name: 'Leander Guo',
+		role: 'Co-founder & CEO',
+		bio: 'Founded Asclevor to make medical knowledge infrastructure as accessible to developers and researchers as the tools they already use every day.',
+		photos: [
+			{
+				src: '/images/leander-e-guo-portrait.webp',
+				alt: 'Portrait of Leander Guo, co-founder and CEO of Asclevor, wearing a navy suit in front of a bookshelf',
+				width: 1000,
+				height: 1000,
+				caption: ''
+			},
+			{
+				src: '/images/leander-e-guo-speaking.webp',
+				alt: 'Leander Guo, CEO of Asclevor, speaking at a conference podium',
+				width: 711,
+				height: 728,
+				caption: 'Speaking at a conference'
+			},
+			{
+				src: '/images/leander-e-guo-university-talk.webp',
+				alt: 'Leander Guo giving a university guest lecture on medical knowledge infrastructure',
+				width: 583,
+				height: 557,
+				caption: 'University guest lecture'
+			}
+		]
+	};
 
 	const values = [
 		{
@@ -48,7 +64,15 @@
 			name: 'Leander Guo',
 			jobTitle: 'Co-founder & CEO',
 			worksFor: { '@type': 'Organization', name: SITE_NAME },
-			url: `${SITE_URL}/leadership`
+			url: `${SITE_URL}/leadership`,
+			image: leader.photos.map((photo) => ({
+				'@type': 'ImageObject',
+				contentUrl: `${SITE_URL}${photo.src}`,
+				name: photo.alt,
+				caption: photo.caption || photo.alt,
+				width: photo.width,
+				height: photo.height
+			}))
 		}
 	];
 </script>
@@ -76,36 +100,47 @@
 		for medical infrastructure — one API call at a time.
 	</p>
 
-	<!-- Leadership grid -->
+	<!-- Leadership -->
 	<section class="mt-[80px]">
 		<h2 class="text-[24px] tracking-[-0.015em] text-ink">Leadership</h2>
-		<div class="mt-8 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-			{#each leaders as leader (leader.id)}
-				<div class="flex flex-col items-start rounded-xl bg-card p-6">
-					<!-- Avatar: photo when present, initials fallback otherwise -->
-					<span
-						class="relative grid h-24 w-24 shrink-0 place-items-center overflow-hidden rounded-full text-[24px] font-bold text-white"
-						style:background-color={leader.bg}
-					>
-						{#if leader.img}
+		<div class="mt-8 grid gap-3 lg:grid-cols-[minmax(0,440px)_1fr]">
+			<!-- Featured portrait -->
+			<figure class="overflow-hidden rounded-xl bg-card">
+				<img
+					src={leader.photos[0].src}
+					alt={leader.photos[0].alt}
+					width={leader.photos[0].width}
+					height={leader.photos[0].height}
+					decoding="async"
+					class="h-full w-full object-cover"
+				/>
+			</figure>
+
+			<div class="flex flex-col rounded-xl bg-card p-6 sm:p-8">
+				<p class="text-[26px] font-medium tracking-[-0.01em] text-ink">{leader.name}</p>
+				<p class="mt-1 text-[15px] text-soft">{leader.role}</p>
+				<p class="mt-4 max-w-[560px] text-[15px] leading-[1.55] text-soft">{leader.bio}</p>
+
+				<!-- Speaking photos -->
+				<div class="mt-8 grid gap-4 sm:grid-cols-2">
+					{#each leader.photos.slice(1) as photo (photo.src)}
+						<figure>
 							<img
-								src={leader.img}
-								alt="Portrait of {leader.name}"
+								src={photo.src}
+								alt={photo.alt}
+								width={photo.width}
+								height={photo.height}
 								loading="lazy"
 								decoding="async"
-								width="96"
-								height="96"
-								class="absolute inset-0 h-full w-full object-cover"
+								class="h-auto w-full rounded-lg object-cover"
 							/>
-						{:else}
-							{leader.initials}
-						{/if}
-					</span>
-					<p class="mt-5 text-[19px] font-medium text-ink">{leader.name}</p>
-					<p class="mt-1 text-[15px] text-soft">{leader.role}</p>
-					<p class="mt-4 text-[15px] leading-[1.55] text-soft">{leader.bio}</p>
+							<figcaption class="mt-2 text-[13px] leading-[1.45] text-soft">
+								{leader.name} — {photo.caption}
+							</figcaption>
+						</figure>
+					{/each}
 				</div>
-			{/each}
+			</div>
 		</div>
 	</section>
 
